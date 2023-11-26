@@ -1,3 +1,7 @@
+<script>
+  import '../app.pcss'
+</script>
+
 <h1>Meu site</h1>
 
 <ul>
