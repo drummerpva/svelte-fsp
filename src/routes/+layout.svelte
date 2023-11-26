@@ -13,5 +13,8 @@
   <li>
     <a href="/contato">Contato</a>
   </li>
+  <li>
+    <a href="/faq">Perguntas Frequentes</a>
+  </li>
 </ul>
 <slot />
