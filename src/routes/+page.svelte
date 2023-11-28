@@ -1,11 +1,12 @@
 <script lang="ts">
-  import Button from '@Components/Button.svelte'
-  import Teste from '@Utils/Teste.svelte'
+  const lista = [
+    { nome: 'Douglas', idade: 32 },
+    { nome: 'Elaine', idade: 25 },
+    { nome: 'Osvaldo', idade: 5 },
+  ]
 </script>
 
-<h2>Home</h2>
-<Button />
-<Button label="Botão 2" />
-<Button />
-<Button label="Outro botão" />
-<Teste />
+<h1>Home</h1>
+{#each lista as { nome, idade }}
+  <p>{nome} tem {idade} anos</p>
+{/each}
