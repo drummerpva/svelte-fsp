@@ -1,6 +1,14 @@
 <script lang="ts">
   // const items    = $page.data.items // não recomentado
-  export let data
+  export let data // usa os dados da função load do arquivo +page.ts
+  let currentCategory = data.categories[0]
+  function changeCategory(category: string) {
+    currentCategory = category
+  }
+  $: items =
+    currentCategory === data.categories[0]
+      ? data.items
+      : data.items.filter((item) => item.category === currentCategory)
 </script>
 
 <section class="bg-white dark:bg-gray-900">
@@ -8,32 +16,19 @@
     <div
       class="flex py-4 mt-4 overflow-x-auto overflow-y-hidden md:justify-center dark:border-gray-700"
     >
-      <button
-        class="h-12 px-8 py-2 -mb-px text-sm text-center text-blue-600 bg-transparent border-b-2 border-blue-500 sm:text-base dark:border-blue-400 dark:text-blue-300 whitespace-nowrap focus:outline-none"
-      >
-        Componentes
-      </button>
-
-      <button
-        class="h-12 px-8 py-2 -mb-px text-sm text-center text-gray-700 bg-transparent border-b-2 border-gray-200 sm:text-base dark:text-white whitespace-nowrap cursor-base focus:outline-none dark:border-gray-700 dark:hover:border-gray-400 hover:border-gray-400"
-      >
-        Web design
-      </button>
-
-      <button
-        class="h-12 px-8 py-2 -mb-px text-sm text-center text-gray-700 bg-transparent border-b-2 border-gray-200 sm:text-base dark:text-white whitespace-nowrap cursor-base focus:outline-none dark:border-gray-700 dark:hover:border-gray-400 hover:border-gray-400"
-      >
-        App design
-      </button>
-
-      <button
-        class="h-12 px-8 py-2 -mb-px text-sm text-center text-gray-700 bg-transparent border-b-2 border-gray-200 sm:text-base dark:text-white whitespace-nowrap cursor-base focus:outline-none dark:border-gray-700 dark:hover:border-gray-400 hover:border-gray-400"
-      >
-        Branding
-      </button>
+      {#each data.categories as category}
+        <button
+          on:click={() => changeCategory(category)}
+          class={category === currentCategory
+            ? 'h-12 px-8 py-2 -mb-px text-sm text-center text-blue-600 bg-transparent border-b-2 border-blue-500 sm:text-base dark:border-blue-400 dark:text-blue-300 whitespace-nowrap focus:outline-none'
+            : 'h-12 px-8 py-2 -mb-px text-sm text-center text-gray-700 bg-transparent border-b-2 border-gray-200 sm:text-base dark:text-white whitespace-nowrap cursor-base focus:outline-none dark:border-gray-700 dark:hover:border-gray-400 hover:border-gray-400'}
+        >
+          {category}
+        </button>
+      {/each}
     </div>
     <section class="mt-8 space-y-8 lg:mt-12">
-      {#each data.items as { title, category, image }}
+      {#each items as { title, category, image }}
         <section class="lg:flex lg:items-center">
           <div class="lg:w-1/2">
             <p
